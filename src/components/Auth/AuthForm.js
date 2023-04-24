@@ -48,6 +48,8 @@ const AuthForm = () => {
       })
       .then((data) => {
         context.login(data.idToken);
+        let getToken = data.idToken;
+        localStorage.setItem("Token", JSON.stringify(getToken));
       })
       .catch((er) => {
         alert(er.message);

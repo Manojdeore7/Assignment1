@@ -5,7 +5,13 @@ import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   let context = useContext(AuthContext);
+  let tok = localStorage.getItem("Token") || null;
+  context.login(tok);
   let login = context.isLoggedIn;
+  function ram() {
+    context.logout();
+    localStorage.clear();
+  }
   return (
     <header className={classes.header}>
       <Link to="/">
@@ -26,7 +32,7 @@ const MainNavigation = () => {
           {login && (
             <li>
               <Link to="/auth">
-                <button onClick={context.logout}>Logout</button>
+                <button onClick={ram}>Logout</button>
               </Link>
             </li>
           )}
