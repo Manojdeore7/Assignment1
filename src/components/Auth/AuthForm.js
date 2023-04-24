@@ -1,8 +1,10 @@
 import { useState, useRef } from "react";
-
+import AuthContext from "../Store/Auth-Context";
+import { useContext } from "react";
 import classes from "./AuthForm.module.css";
 
 const AuthForm = () => {
+  let context = useContext(AuthContext);
   let emaill = useRef("");
   let passwordl = useRef("");
   const [isLogin, setIsLogin] = useState(true);
@@ -11,7 +13,7 @@ const AuthForm = () => {
   }
   function submitHandler(e) {
     e.preventDefault();
-    setIsLogin(true);
+
     let enterEmail = emaill.current.value;
     let enterPassword = passwordl.current.value;
     let url;
@@ -38,11 +40,14 @@ const AuthForm = () => {
           return res.json();
         } else {
           let mes = "AUTHENTICATION IS fAILED!";
-          throw new Error(mes);
+          return res.json().then((data) => {
+            mes = data.error.message;
+            throw new Error(mes);
+          });
         }
       })
       .then((data) => {
-        console.log(data.idToken);
+        context.login(data.idToken);
       })
       .catch((er) => {
         alert(er.message);
