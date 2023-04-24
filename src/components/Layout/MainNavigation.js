@@ -25,7 +25,9 @@ const MainNavigation = () => {
           )}
           {login && (
             <li>
-              <button onClick={context.logout}>Logout</button>
+              <Link to="/auth">
+                <button onClick={context.logout}>Logout</button>
+              </Link>
             </li>
           )}
         </ul>
