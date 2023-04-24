@@ -5,10 +5,10 @@ import AuthContext from "../Store/Auth-Context";
 const ProfileForm = () => {
   let cxt = useContext(AuthContext);
   let newPasswordRef = useRef("");
-  let submitHandler = (e) => {
+  let submitHandler = async (e) => {
     e.preventDefault();
     let pass = newPasswordRef.current.value;
-    fetch(
+    let res = await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyD75n7Mrcm1q4ndl92CJNLqr61eLavjvhI",
       {
         method: "POST",
@@ -22,6 +22,7 @@ const ProfileForm = () => {
         },
       }
     );
+    let data = await res.json();
   };
   return (
     <form className={classes.form} onSubmit={submitHandler}>
