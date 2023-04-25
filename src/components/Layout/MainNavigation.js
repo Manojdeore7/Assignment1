@@ -10,7 +10,6 @@ const MainNavigation = () => {
   let login = context.isLoggedIn;
   function ram() {
     context.logout();
-    localStorage.clear();
   }
   return (
     <header className={classes.header}>

@@ -14,6 +14,7 @@ export function AuthContextProvider(props) {
   };
   let loggedOutHandeler = () => {
     setToken(null);
+    localStorage.clear();
   };
 
   let context = {
