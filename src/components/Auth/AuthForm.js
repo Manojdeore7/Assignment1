@@ -16,44 +16,26 @@ const AuthForm = () => {
 
     let enterEmail = emaill.current.value;
     let enterPassword = passwordl.current.value;
-    let url;
+
     if (isLogin) {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD75n7Mrcm1q4ndl92CJNLqr61eLavjvhI";
+      let data = JSON.parse(localStorage.getItem("Data")) || [];
+      let res = data.filter((e) => {
+        return e.email === enterEmail && e.password === enterPassword;
+      });
+      if (res.length > 0) {
+        context.login();
+      } else {
+        alert("This user is not exist!!!");
+      }
     } else {
-      url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyD75n7Mrcm1q4ndl92CJNLqr61eLavjvhI";
-    }
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
+      let data = JSON.parse(localStorage.getItem("Data")) || [];
+      data.push({
         email: enterEmail,
         password: enterPassword,
-        returnSecureToken: true,
-      }),
-      headers: {
-        "Content-Type": "aplication/json",
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          let mes = "AUTHENTICATION IS fAILED!";
-          return res.json().then((data) => {
-            mes = data.error.message;
-            throw new Error(mes);
-          });
-        }
-      })
-      .then((data) => {
-        context.login(data.idToken);
-        let getToken = data.idToken;
-        localStorage.setItem("Token", JSON.stringify(getToken));
-      })
-      .catch((er) => {
-        alert(er.message);
       });
+      localStorage.setItem("Data", JSON.stringify(data));
+      context.login();
+    }
   }
 
   return (

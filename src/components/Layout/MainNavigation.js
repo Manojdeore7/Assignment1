@@ -5,8 +5,7 @@ import classes from "./MainNavigation.module.css";
 
 const MainNavigation = () => {
   let context = useContext(AuthContext);
-  let tok = localStorage.getItem("Token") || null;
-  context.login(tok);
+
   let login = context.isLoggedIn;
   function ram() {
     context.logout();
@@ -25,7 +24,7 @@ const MainNavigation = () => {
           )}
           {login && (
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link to="/profile">Company Info</Link>
             </li>
           )}
           {login && (
