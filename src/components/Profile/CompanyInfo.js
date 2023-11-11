@@ -17,7 +17,7 @@ const CompanyInfo = () => {
 
         <p style={{ fontSize: "30px" }}>
           <b>Email:</b>
-          <a style={{ color: "blue" }}> XXXXXX@gmail.com</a>
+          <p style={{ color: "blue" }}> XXXXXX@gmail.com</p>
         </p>
       </div>
     </section>
