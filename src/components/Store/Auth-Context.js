@@ -17,6 +17,7 @@ export function AuthContextProvider(props) {
         genre: "all",
         sort: "voting",
       }),
+
       headers: {
         "Content-Type": "application/json",
       },
